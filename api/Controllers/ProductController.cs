@@ -59,6 +59,16 @@ namespace api.Controllers
             );
         }
 
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] ProductDtoUpdate productDto)    
+        {
+            var product = await _productRepo.UpdateAsync(id, productDto);
+            if(product == null)
+                return NotFound("Product or Category does not exists");
+            
+            return Ok(product.ToProducDto());
+        }
+
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> Delete([FromRoute] int id)    
         {

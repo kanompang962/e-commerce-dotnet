@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using api.Data;
+using api.Dtos.Product;
 using api.Interfaces;
 using api.Models;
 using Microsoft.EntityFrameworkCore;
@@ -12,9 +13,11 @@ namespace api.Repository
     public class ProductRepository : IProductRepository
     {
         private readonly ApplicationDBContext _context;
-        public ProductRepository(ApplicationDBContext context)
+              private readonly ICategoryRepository _categoryRepo;
+        public ProductRepository(ApplicationDBContext context, ICategoryRepository categoryRepo)
         {
             _context = context;
+            _categoryRepo = categoryRepo;
         }
 
         public async Task<Product> CreateAsync(Product product)
@@ -49,6 +52,25 @@ namespace api.Repository
                 return null;
 
             return product;
+        }
+
+        public async Task<Product?> UpdateAsync(int id, ProductDtoUpdate productDto)
+        {
+            var existingProduct = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
+            var existingCategoryId = await _categoryRepo.CategoryExists(productDto.categoryId);
+            if(existingProduct == null)
+                return null;
+            if(!existingCategoryId)
+                return null;
+            
+            existingProduct.Name = productDto.Name;
+            existingProduct.Img = productDto.Img;
+            existingProduct.Price = productDto.Price;
+            existingProduct.Description = productDto.Description;
+            existingProduct.CategoryId = productDto.categoryId;
+
+            await _context.SaveChangesAsync();
+            return existingProduct;
         }
     }
 }
