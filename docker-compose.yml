@@ -1,0 +1,32 @@
+# Please refer https://aka.ms/HTTPSinContainer on how to setup an https developer certificate for your ASP.NET Core service.
+
+version: '3.4'
+
+services:
+  # api:
+  #   image: api
+  #   container_name: container_api
+  #   build:
+  #     context: .
+  #     dockerfile: api/Dockerfile
+  #   ports:
+  #     - 5042:5042
+  #   depends_on:
+  #     - sql
+
+  sql:
+    image: mcr.microsoft.com/azure-sql-edge
+    container_name: sql
+    ports:
+      - "1433:1433"
+    restart: unless-stopped
+    volumes:
+      - mssql_data:/var/opt/mssql
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "Def0931177457"
+      MSSQL_PID: "Developer"
+      MSSQL_USER: "SA"
+
+volumes:
+  mssql_data:
