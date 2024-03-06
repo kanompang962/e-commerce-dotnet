@@ -39,6 +39,27 @@ namespace api.Controllers
             return Ok(category.ToCategoryDto());
         }
 
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] CategoryDtoUpdate categoryDto)    
+        {
+            var category = await _categoryRepo.UpdateAsync(id, categoryDto);
+            if(category == null)
+                return NotFound("Category does not exists");
+            
+            return Ok(category.ToCategoryDto());
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> Delete([FromRoute] int id)    
+        {
+            var category = await _categoryRepo.DeleteAsync(id);
+
+            if(category == null)
+                return NotFound("Category does not exists");
+            
+            return Ok(category.ToCategoryDto());
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CategoryDtoRequest categoryDto)
         {

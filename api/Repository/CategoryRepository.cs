@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using api.Data;
+using api.Dtos.Category;
 using api.Interfaces;
 using api.Mappers;
 using api.Models;
@@ -30,6 +31,17 @@ namespace api.Repository
             return category;
         }
 
+        public async Task<Category?> DeleteAsync(int id)
+        {
+            var existingCategory = await _context.Categorys.FirstOrDefaultAsync(c => c.Id == id);
+            if(existingCategory == null)
+                return null;
+
+            _context.Categorys.Remove(existingCategory);
+            await _context.SaveChangesAsync();
+            return existingCategory;
+        }
+
         public async Task<List<Category>> GetAllAsync()
         {
             var category = await _context.Categorys.ToListAsync();
@@ -43,6 +55,17 @@ namespace api.Repository
                 return null;
 
             return category;
+        }
+
+        public async Task<Category?> UpdateAsync(int id, CategoryDtoUpdate categoryDto)
+        {
+            var existingCategory = await _context.Categorys.FirstOrDefaultAsync(c => c.Id == id);
+            if(existingCategory == null)
+                return null;
+            
+            existingCategory.Name = categoryDto.Name;
+            await _context.SaveChangesAsync();
+            return existingCategory;
         }
     }
 }
