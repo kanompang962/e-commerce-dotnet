@@ -24,6 +24,17 @@ namespace api.Repository
             return product;
         }
 
+        public async Task<Product?> DeleteAsync(int id)
+        {
+            var product = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
+            if(product == null)
+                return null;
+
+            _context.Products.Remove(product);
+            await _context.SaveChangesAsync();
+            return product;
+        }
+
         public async Task<List<Product>> GetAllAsync()
         {
             var products = await _context.Products.Include(c => c.Category).ToListAsync();
