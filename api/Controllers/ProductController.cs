@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using api.Data;
+using api.Dtos.File;
 using api.Dtos.Product;
 using api.Interfaces;
 using api.Mappers;
@@ -17,13 +18,21 @@ namespace api.Controllers
     {
         private readonly IProductRepository _productRepo;
         private readonly ICategoryRepository _categoryRepo;
-        private readonly IUploadService _uploadService;
-        public ProductController(IProductRepository productRepo, ICategoryRepository categoryRepo, IUploadService uploadService)
+        private readonly IFileService _fileService;
+        public ProductController(IProductRepository productRepo, ICategoryRepository categoryRepo, IFileService fileService)
         {
             _productRepo = productRepo;
             _categoryRepo = categoryRepo;
-            _uploadService = uploadService;
+            _fileService = fileService;
         }
+
+        [Route("upload")]
+        [HttpPost]
+        public IActionResult UploadFile([FromForm] FileDto fileDto)
+        {
+            var dbPath = _fileService.UploadImage(fileDto, "products");
+            return Ok(new {dbPath});
+        } 
 
         [HttpGet]
         public async Task<IActionResult> GetAll()    
@@ -37,7 +46,6 @@ namespace api.Controllers
         public async Task<IActionResult> GetById([FromRoute] int id)    
         {
             var product = await _productRepo.GetByIdAsync(id);
-
             if(product == null)
                 return NotFound("Product not found");
 

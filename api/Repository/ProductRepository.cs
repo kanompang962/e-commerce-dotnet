@@ -66,6 +66,7 @@ namespace api.Repository
             existingProduct.Name = productDto.Name;
             existingProduct.Img = productDto.Img;
             existingProduct.Price = productDto.Price;
+            existingProduct.Quantity = productDto.Quantity;
             existingProduct.Description = productDto.Description;
             existingProduct.CategoryId = productDto.categoryId;
 

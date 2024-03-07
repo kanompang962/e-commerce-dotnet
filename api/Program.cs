@@ -3,6 +3,7 @@ using api.Interfaces;
 using api.Repository;
 using api.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,7 +22,7 @@ builder.Services.AddDbContext<ApplicationDBContext>(options => {
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-builder.Services.AddScoped<IUploadService, UploadService>();
+builder.Services.AddScoped<IFileService, FileService>();
 
 var app = builder.Build();
 
@@ -37,5 +38,12 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+// active path image
+app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions(){
+    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
+    RequestPath = new PathString("/Resources")
+});
 
 app.Run();

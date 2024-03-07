@@ -18,6 +18,7 @@ namespace api.Mappers
                 Name = productModel.Name,
                 Img = productModel.Img,
                 Price = productModel.Price,
+                Quantity = productModel.Quantity,
                 Description = productModel.Description,
                 CategoryId = productModel.CategoryId,
                 Category = productModel.Category?.ToCategoryDto(),
@@ -31,6 +32,7 @@ namespace api.Mappers
                 Name = productDto.Name,
                 Img = productDto.Img,
                 Price = productDto.Price,
+                Quantity = productDto.Quantity,
                 Description = productDto.Description,
                 CategoryId = categoryId
             };
