@@ -8,6 +8,6 @@ namespace api.Interfaces
 {
     public interface IFileService
     {
-        string? UploadImage(FileDto fileDto, string folder);
+        string? UploadImage(IFormFile fileDto, string folder);
     }
 }

@@ -16,7 +16,7 @@ services:
 
   sql:
     image: mcr.microsoft.com/azure-sql-edge
-    container_name: sql
+    container_name: container_sql
     ports:
       - "1433:1433"
     restart: unless-stopped

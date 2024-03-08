@@ -13,11 +13,13 @@ namespace api.Repository
     public class ProductRepository : IProductRepository
     {
         private readonly ApplicationDBContext _context;
-              private readonly ICategoryRepository _categoryRepo;
-        public ProductRepository(ApplicationDBContext context, ICategoryRepository categoryRepo)
+        private readonly IFileService _fileService;
+        private readonly ICategoryRepository _categoryRepo;
+        public ProductRepository(ApplicationDBContext context, ICategoryRepository categoryRepo, IFileService fileService)
         {
             _context = context;
             _categoryRepo = categoryRepo;
+            _fileService = fileService;
         }
 
         public async Task<Product> CreateAsync(Product product)
@@ -54,17 +56,25 @@ namespace api.Repository
             return product;
         }
 
-        public async Task<Product?> UpdateAsync(int id, ProductDtoUpdate productDto)
+        public async Task<Product?> UpdateAsync(int id, ProductDtoUpdateFormData productDto)
         {
             var existingProduct = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
             var existingCategoryId = await _categoryRepo.CategoryExists(productDto.categoryId);
+            var dbPath = "";
+
             if(existingProduct == null)
                 return null;
+
             if(!existingCategoryId)
                 return null;
+
+            if(productDto.Img == null)
+                return null;
+            
+            dbPath = _fileService.UploadImage(productDto.Img, "products");     
             
             existingProduct.Name = productDto.Name;
-            existingProduct.Img = productDto.Img;
+            existingProduct.Img = dbPath!;
             existingProduct.Price = productDto.Price;
             existingProduct.Quantity = productDto.Quantity;
             existingProduct.Description = productDto.Description;

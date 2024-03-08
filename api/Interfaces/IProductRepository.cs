@@ -12,7 +12,7 @@ namespace api.Interfaces
         Task<List<Product>> GetAllAsync();
         Task<Product?> GetByIdAsync(int id);
         Task<Product> CreateAsync(Product product);
-        Task<Product?> UpdateAsync(int id, ProductDtoUpdate productDto);
+        Task<Product?> UpdateAsync(int id, ProductDtoUpdateFormData productDto);
         Task<Product?> DeleteAsync(int id);
     }
 }

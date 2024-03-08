@@ -9,9 +9,9 @@ namespace api.Services
 {
     public class FileService : IFileService
     {
-        public string? UploadImage(FileDto fileDto, string folder)
+        public string? UploadImage(IFormFile fileImg, string folder)
         {
-            if(fileDto.File == null && fileDto.File?.Length == 0)
+            if(fileImg== null && fileImg?.Length == 0)
                 return null;
             
             var folderName = Path.Combine("Resources", folder);
@@ -21,7 +21,7 @@ namespace api.Services
                 Directory.CreateDirectory(pathToSave);
             
             // var fileName = fileDto.File!.FileName;
-            var fileExtension = Path.GetExtension(fileDto.File!.FileName);
+            var fileExtension = Path.GetExtension(fileImg!.FileName);
             var fileName = Guid.NewGuid().ToString() + fileExtension;
             var fullPath = Path.Combine(pathToSave, fileName);
             var dbPath = Path.Combine(folderName, fileName);
@@ -31,7 +31,7 @@ namespace api.Services
 
             using (var stream = new FileStream(fullPath, FileMode.Create))
             {
-                fileDto.File.CopyTo(stream);
+                fileImg.CopyTo(stream);
             }
 
             return dbPath;

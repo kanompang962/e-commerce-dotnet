@@ -26,13 +26,13 @@ namespace api.Controllers
             _fileService = fileService;
         }
 
-        [Route("upload")]
-        [HttpPost]
-        public IActionResult UploadFile([FromForm] FileDto fileDto)
-        {
-            var dbPath = _fileService.UploadImage(fileDto, "products");
-            return Ok(new {dbPath});
-        } 
+        // [Route("upload")]
+        // [HttpPost]
+        // public IActionResult UploadFile([FromForm] FileDto fileDto)
+        // {
+        //     var dbPath = _fileService.UploadImage(fileDto, "products");
+        //     return Ok(new {dbPath});
+        // } 
 
         [HttpGet]
         public async Task<IActionResult> GetAll()    
@@ -53,12 +53,25 @@ namespace api.Controllers
         }
 
         [HttpPost("{categoryId:int}")]
-        public async Task<IActionResult> Create([FromBody] ProductDtoRequest productDto, [FromRoute] int categoryId)    
+        public async Task<IActionResult> Create([FromForm] ProductDtoRequestFormData productDto, [FromRoute] int categoryId)    
         {
             if(!await _categoryRepo.CategoryExists(categoryId))
                 return BadRequest("Category does not exists");
-                
-            var product = productDto.ToProductFormCreateDTO(categoryId);
+            
+            if (productDto.Img == null)
+                return BadRequest("Img does not exists");
+
+            var dbPath = _fileService.UploadImage(productDto.Img!, "products");
+
+            var productForm = new ProductDtoRequest{
+                Name = productDto.Name,
+                Img = dbPath!,
+                Price = productDto.Price,
+                Quantity = productDto.Quantity,
+                Description = productDto.Description,
+            };
+            var product = productForm.ToProductFormCreateDTO(categoryId);
+            
             await _productRepo.CreateAsync(product);
             return CreatedAtAction(
                 nameof(GetById),
@@ -68,9 +81,13 @@ namespace api.Controllers
         }
 
         [HttpPut("{id:int}")]
-        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] ProductDtoUpdate productDto)    
+        public async Task<IActionResult> Update([FromRoute] int id, [FromForm] ProductDtoUpdateFormData productDto)    
         {
+            if (productDto.Img == null)
+                return BadRequest("Img does not exists");
+
             var product = await _productRepo.UpdateAsync(id, productDto);
+            
             if(product == null)
                 return NotFound("Product or Category does not exists");
             
