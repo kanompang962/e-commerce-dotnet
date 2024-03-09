@@ -135,3 +135,5 @@
 /Users/dave/developer/dotnet/e-commerce-dotnet/api/bin/Debug/net8.0/runtimes/win/lib/net6.0/System.Security.Cryptography.ProtectedData.dll
 /Users/dave/developer/dotnet/e-commerce-dotnet/api/bin/Debug/net8.0/runtimes/win/lib/net6.0/System.Windows.Extensions.dll
 /Users/dave/developer/dotnet/e-commerce-dotnet/api/obj/Debug/net8.0/api.sourcelink.json
+/Users/dave/developer/dotnet/e-commerce-dotnet/api/bin/Debug/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/Users/dave/developer/dotnet/e-commerce-dotnet/api/bin/Debug/net8.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll

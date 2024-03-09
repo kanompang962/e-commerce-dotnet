@@ -8,6 +8,10 @@
 -   Microsoft.EntityFrameworkCore.Tools
 -   Microsoft.EntityFrameworkCore.Design
 
+-   Microsoft.Extensions.Identity.Core
+-   Microsoft.AspNetCore.Identity.EntityFrameworkCore
+-   Microsoft.AspNetCore.Authentication.JwtBearer
+
 # migrations
 -   dotnet ef migrations add init
 -   dotnet ef migrations add Identity
