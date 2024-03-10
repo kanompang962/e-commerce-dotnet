@@ -13,7 +13,7 @@ namespace api.Dtos.Order
         public int Id { get; set; }
         public DateTime Date { get; set; } = DateTime.Now;
         public int TotalAmount { get; set; }
-        public int TotalPrice { get; set; }
+        public decimal TotalPrice { get; set; }
         public bool Payment { get; set; }
         public string? AppUserId { get; set; }
         public AppUserDto? AppUser { get; set; }

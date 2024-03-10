@@ -24,12 +24,12 @@ namespace api.Mappers
             };
         }
 
-        public static Order ToOrderFormCreateDTO(this OrderDtoRequest productDto, string appUserId)
+        public static Order ToOrderFormCreateDTO(this OrderDtoRequest productDto, string appUserId, decimal total_price, int total_amount)
         {
             return new Order
             {
-                TotalAmount = productDto.TotalAmount,
-                TotalPrice = productDto.TotalPrice,
+                TotalAmount = total_amount,
+                TotalPrice = total_price,
                 Payment = productDto.Payment,
                 AppUserId = appUserId,
             };

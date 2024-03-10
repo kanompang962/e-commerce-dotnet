@@ -17,11 +17,18 @@ namespace api.Controllers
     public class OrderController : ControllerBase
     {
         private readonly IOrderRepository _orderRepo;
+        private readonly IProductRepository _productRepo;
         private readonly IOrderProductRepository _orderProductRepo;
         private readonly UserManager<AppUser> _userManager;
-        public OrderController(IOrderRepository orderRepo, IOrderProductRepository orderProductRepo, UserManager<AppUser> userManager)
+        public OrderController(
+            IOrderRepository orderRepo, 
+            IOrderProductRepository orderProductRepo, 
+            IProductRepository productRepo,
+            UserManager<AppUser> userManager
+        )
         {
             _orderRepo = orderRepo;
+            _productRepo = productRepo;
             _userManager = userManager;
             _orderProductRepo = orderProductRepo;
         }
@@ -51,19 +58,33 @@ namespace api.Controllers
             // check user
             var username = User.GetUsername();
             var appUser = await _userManager.FindByNameAsync(username);
+            var orderProduct = orderDto.OrderProducts;
+            var total_amount = 0;
+            decimal total_price = 0;
 
             if(appUser == null)
                 return BadRequest("account does not exists");
             
+            // calculator total, price
+            if (orderProduct?.Length > 0 || orderProduct != null)
+            {
+                foreach (var item in orderProduct)
+                {
+                    var product = await _productRepo.GetByIdAsync(item.ProductId);
+                    total_amount += item.Quantity;
+                    total_price += item.Quantity * product!.Price;
+                    
+                }
+            }
+            
             // add order
-            var order = orderDto.ToOrderFormCreateDTO(appUser.Id);
+            var order = orderDto.ToOrderFormCreateDTO(appUser.Id, total_price, total_amount);
             var result = await _orderRepo.CreateAsync(order);
 
             if(result == null)
                 return StatusCode(500, "Could not create");
 
             // add order item
-            var orderProduct = orderDto.OrderProducts;
             if (orderProduct?.Length > 0 || orderProduct != null)
             {
                 foreach (var item in orderProduct)
