@@ -17,11 +17,13 @@ namespace api.Controllers
     public class OrderController : ControllerBase
     {
         private readonly IOrderRepository _orderRepo;
+        private readonly IOrderProductRepository _orderProductRepo;
         private readonly UserManager<AppUser> _userManager;
-        public OrderController(IOrderRepository orderRepo, UserManager<AppUser> userManager)
+        public OrderController(IOrderRepository orderRepo, IOrderProductRepository orderProductRepo, UserManager<AppUser> userManager)
         {
             _orderRepo = orderRepo;
             _userManager = userManager;
+            _orderProductRepo = orderProductRepo;
         }
 
         [HttpGet]
@@ -53,10 +55,32 @@ namespace api.Controllers
             if(appUser == null)
                 return BadRequest("account does not exists");
             
+            // add order
             var order = orderDto.ToOrderFormCreateDTO(appUser.Id);
-            await _orderRepo.CreateAsync(order);
+            var result = await _orderRepo.CreateAsync(order);
 
-             return Ok("success");
+            if(result == null)
+                return StatusCode(500, "Could not create");
+
+            // add order item
+            var orderProduct = orderDto.OrderProducts;
+            if (orderProduct?.Length > 0 || orderProduct != null)
+            {
+                foreach (var item in orderProduct)
+                {
+                    var orderItem = item.ToOrderProductFormCreateDTO(result.Id);
+                    var itemResult = await _orderProductRepo.CreateAsync(orderItem);
+
+                    if(itemResult == null)  
+                        return BadRequest("order product colud not create");
+                }
+            }
+            
+            return CreatedAtAction(
+                nameof(GetById),
+                new {id = result.Id},
+                result.ToOrderDto()
+            );
         }
     }
 }

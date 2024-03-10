@@ -20,6 +20,7 @@ namespace api.Data
         public DbSet<Category> Categorys { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderProduct> OrderProducts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -37,6 +38,18 @@ namespace api.Data
                 .WithOne(o => o.AppUser)
                 .HasForeignKey(o => o.AppUserId);
 
+            // many to many (order, product)
+            modelBuilder.Entity<OrderProduct>(x => x.HasKey(p => new { p.OrderId, p.ProductId }));
+
+            modelBuilder.Entity<OrderProduct>()
+                .HasOne(u => u.Order)
+                .WithMany(u => u.OrderProducts)
+                .HasForeignKey(p => p.OrderId);
+
+            modelBuilder.Entity<OrderProduct>()
+                .HasOne(u => u.Product)
+                .WithMany(u => u.OrderProducts)
+                .HasForeignKey(p => p.ProductId);
 
             // default category
             modelBuilder.Entity<Category>().HasData(

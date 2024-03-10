@@ -27,12 +27,21 @@ namespace api.Repository
 
         public async Task<List<Order>> GetAllAsync()
         {
-            return await _context.Orders.Include(a => a.AppUser).ToListAsync();
+            return await _context.Orders
+                        .Include(op => op.OrderProducts) // เพิ่มบรรทัดนี้เพื่อดึงข้อมูลจาก OrderProduct
+                        .ThenInclude(op => op.Product) // เพิ่มบรรทัดนี้เพื่อดึงข้อมูลจาก Product
+                        .ThenInclude(c => c!.Category) // เพิ่มบรรทัดนี้เพื่อดึงข้อมูลจาก Category
+                        .Include(a => a.AppUser).ToListAsync();
+            // return await _context.Orders.Include(a => a.AppUser).ToListAsync();
         }
 
         public async Task<Order?> GetByIdAsync(int id)
         {
-            var order = await _context.Orders.Include(a => a.AppUser).FirstOrDefaultAsync(o => o.Id == id);
+            var order = await _context.Orders
+                            .Include(op => op.OrderProducts) // เพิ่มบรรทัดนี้เพื่อดึงข้อมูลจาก OrderProduct
+                            .ThenInclude(op => op.Product) // เพิ่มบรรทัดนี้เพื่อดึงข้อมูลจาก Product
+                            .ThenInclude(c => c!.Category) // เพิ่มบรรทัดนี้เพื่อดึงข้อมูลจาก Category
+                            .Include(a => a.AppUser).FirstOrDefaultAsync(o => o.Id == id);
 
             if(order == null)
                 return null;

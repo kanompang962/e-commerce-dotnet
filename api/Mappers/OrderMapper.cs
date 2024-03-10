@@ -17,8 +17,10 @@ namespace api.Mappers
                 Date = orderModel.Date,
                 TotalAmount = orderModel.TotalAmount,
                 TotalPrice = orderModel.TotalPrice,
+                Payment = orderModel.Payment,
                 AppUserId = orderModel.AppUserId,
-                AppUser = orderModel.AppUser?.ToAppUserDto()
+                AppUser = orderModel.AppUser?.ToAppUserDto(),
+                OrderProducts = orderModel.OrderProducts.Select(or => or.ToOrderProductDto()).ToList()
             };
         }
 
@@ -28,6 +30,7 @@ namespace api.Mappers
             {
                 TotalAmount = productDto.TotalAmount,
                 TotalPrice = productDto.TotalPrice,
+                Payment = productDto.Payment,
                 AppUserId = appUserId,
             };
         }

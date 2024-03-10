@@ -17,5 +17,6 @@ namespace api.Models
         public string Description { get; set; } = string.Empty;
         public int CategoryId { get; set; }
         public Category? Category { get; set; }
+        public List<OrderProduct> OrderProducts { get; set; } = new List<OrderProduct>();
     }
 }
