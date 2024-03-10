@@ -10,6 +10,7 @@ namespace api.Interfaces
     {
         Task<List<Order>> GetAllAsync();
         Task<Order?> GetByIdAsync(int id);
+        Task<List<Order>> GetByUserAsync(AppUser appUser);
         Task<Order> CreateAsync(Order order);
     }
 }

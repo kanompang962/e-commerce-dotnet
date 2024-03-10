@@ -44,12 +44,29 @@ namespace api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
-            // check user
             var order = await _orderRepo.GetByIdAsync(id);
             if(order == null)
                 return NotFound("order does not exists");
             
             return Ok(order.ToOrderDto());
+        }
+
+        [HttpGet]
+        [Route("user")]
+        public async Task<IActionResult> GetByUser()
+        {
+            // check user
+            var username = User.GetUsername();
+            var appUser = await _userManager.FindByNameAsync(username);
+
+            if(appUser == null)
+                return BadRequest("token does not exists");
+
+            var order = await _orderRepo.GetByUserAsync(appUser);
+            if(order == null)
+                return NotFound("order does not exists");
+            
+            return Ok(order.Select(o => o.ToOrderDto()));
         }
         
         [HttpPost]

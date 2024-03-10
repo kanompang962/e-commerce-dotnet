@@ -38,14 +38,26 @@ namespace api.Repository
         public async Task<Order?> GetByIdAsync(int id)
         {
             var order = await _context.Orders
-                            .Include(op => op.OrderProducts) // เพิ่มบรรทัดนี้เพื่อดึงข้อมูลจาก OrderProduct
-                            .ThenInclude(op => op.Product) // เพิ่มบรรทัดนี้เพื่อดึงข้อมูลจาก Product
-                            .ThenInclude(c => c!.Category) // เพิ่มบรรทัดนี้เพื่อดึงข้อมูลจาก Category
-                            .Include(a => a.AppUser).FirstOrDefaultAsync(o => o.Id == id);
+                .Include(op => op.OrderProducts) // เพิ่มบรรทัดนี้เพื่อดึงข้อมูลจาก OrderProduct
+                .ThenInclude(op => op.Product) // เพิ่มบรรทัดนี้เพื่อดึงข้อมูลจาก Product
+                .ThenInclude(c => c!.Category) // เพิ่มบรรทัดนี้เพื่อดึงข้อมูลจาก Category
+                .Include(a => a.AppUser).FirstOrDefaultAsync(o => o.Id == id);
 
             if(order == null)
                 return null;
             
+            return order;
+        }
+
+        public async Task<List<Order>> GetByUserAsync(AppUser appUser)
+        {
+            var order = await _context.Orders
+                .Include(op => op.OrderProducts) // เพิ่มบรรทัดนี้เพื่อดึงข้อมูลจาก OrderProduct
+                .ThenInclude(op => op.Product) // เพิ่มบรรทัดนี้เพื่อดึงข้อมูลจาก Product
+                .ThenInclude(c => c!.Category) // เพิ่มบรรทัดนี้เพื่อดึงข้อมูลจาก Category
+                .Include(a => a.AppUser)
+                .Where(o => o.AppUserId == appUser.Id).ToListAsync();
+
             return order;
         }
     }
