@@ -1,0 +1,73 @@
+@import 'src/styles.scss';
+
+.detail-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .product-card {
+        background: #fff;
+        display: flex;
+
+        .product-img {
+            width: 40%;
+            padding: 20px;
+
+            img {
+                width: 100%;
+                height: 420px;
+                object-fit: cover;
+            }
+        }
+
+        .product-detail {
+            width: 60%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 20px;
+
+            .header {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+
+                .title {
+                    font-size: 20px;
+                }
+            }
+
+            .flags {
+                display: flex;
+                gap: 14px;
+            }
+
+            .price-detail {
+                background: #fafafa;
+                display: flex;
+                align-items: center;
+                gap: 20px;
+                padding: 20px;
+
+                .discount {
+                    color: gray;
+                }
+
+                .price {
+                    font-size: 30px;
+                    font-weight: 500;
+                }
+
+            }
+        }
+    }
+}
+
+// shared
+.tag {
+    background: $primary;
+    color: #fff;
+    font-weight: 800;
+    font-size: 12px;
+    padding: 0 6px;
+}

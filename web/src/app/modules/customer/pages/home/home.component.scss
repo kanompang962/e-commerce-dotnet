@@ -1,0 +1,99 @@
+@import "src/styles.scss";
+
+.home {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    overflow: hidden;
+    gap: 20px;
+
+    .scroll-container {
+        overflow: hidden;
+        width: 100%;
+        position: relative;
+
+        .category {
+            display: flex;
+            width: 100%;
+            transition: transform 300ms ease-out;
+    
+            .category-item {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                padding: 20px;
+                border: 1px solid #b1afaf;
+                
+                img {
+                    width: 80px;
+                    height: 80px;
+                    object-fit: cover;
+                    border-radius: 50%;
+                }
+            }
+        }
+      }
+      
+      
+
+
+
+    .list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+
+        .list-item {
+            position: relative;
+            border: 1px solid #ddd;
+            cursor: pointer;
+
+            img {
+                width: 100%;
+                height: 180px;
+                object-fit: cover;
+            }
+
+            .tag {
+                position: absolute;
+                top: 0;
+                right: 0;
+                background: #feea86;
+                color: $primary-red;
+                padding: 2px;
+            }
+
+            .detail {
+                padding: 10px;
+                // line-height: 10px;
+
+                .promotion {
+                    border: 1px solid rgb(216, 86, 86);
+                    font-size: 12px;
+                    display: inline;
+                    color: rgb(216, 86, 86);
+                    padding: 2px;
+                }
+
+                .footer {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-top: 30px;
+
+                    .price {
+                        font-size: 18px;
+                        color: rgb(216, 86, 86);
+                    }
+
+                    .sold {
+                        font-size: 14px;
+                        color: rgb(168, 168, 168);
+                    }
+                }
+            }
+        }
+    }
+    
+
+}

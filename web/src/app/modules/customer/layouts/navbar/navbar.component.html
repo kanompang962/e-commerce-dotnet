@@ -1,0 +1,40 @@
+<div class="navbar">
+    <div class="nav-container">
+      <!-- header -->
+        <div class="nav-header">
+            <div class="nav-list">
+                <p class="item-list" *ngFor="let item of sociallist">
+                    {{item.title}}
+                </p>
+            </div>
+            <div class="nav-list">
+                <p class="item-list" *ngFor="let item of navlist">
+                    {{item.title}}
+                </p>
+                <p class="signup">Sign Up</p>|
+                <p class="login">Login</p>
+            </div>
+        </div>
+        <!-- center -->
+        <div class="nav-center">
+          <!-- logo -->
+            <div class="logo">
+                <img class="logo-img" src="assets/icon.ico" alt="logo">
+                <div class="logo-title">E-commerce</div>
+            </div>
+            <!-- search -->
+            <div class="search">
+                <input type="text">
+                <div class="icon">
+                    <mat-icon>search</mat-icon>
+                </div>
+            </div>
+            <!-- cart -->
+            <div class="cart">
+                <mat-icon>shopping_cart_outlined</mat-icon>
+            </div>
+        </div>
+        <!-- footer -->
+        <div class="nav-footer"></div>
+    </div>
+</div>

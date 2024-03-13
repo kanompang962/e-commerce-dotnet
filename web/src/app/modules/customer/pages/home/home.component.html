@@ -1,0 +1,30 @@
+<div class="home">
+    <app-banner></app-banner>
+    <!-- caategory -->
+    <div class="scroll-container">
+        <div class="category" [style.transform]="'translateX(' + translateX + 'px)'">
+          <div class="category-item" *ngFor="let item of categorys">
+            <img [src]="item.img" alt="">
+            {{ item.title }}
+          </div>
+        </div>
+      </div>
+      <button (click)="scrollLeft()">Scroll Left</button>
+      <button (click)="scrollRight()">Scroll Right</button>
+      
+    <!-- list -->
+    <div class="list">
+        <div class="list-item" (click)="productToDetail(item.id)" *ngFor="let item of categorys">
+            <img [src]="item.img" alt="product">
+            <div class="tag">-99%</div>
+            <div class="detail">
+                <p class="name">TWS Wireless bluetooth</p>
+                <div class="promotion">New Promotion 80% OFF</div>
+                <div class="footer">
+                    <p class="price">฿12</p>
+                    <p class="sold">2.8k sold</p>
+                 </div>
+            </div>
+        </div>
+    </div>
+</div>
