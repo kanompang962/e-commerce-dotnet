@@ -1,1 +1,70 @@
-<p>footer works!</p>
+<div class="footer-container">
+    <div class="section-1">
+        <p class="toppic">Related Products</p>
+        <div class="title-item" *ngFor="let item of related_products; let i = index;">
+            <p class="title"><span class="number">{{i+1}}.&nbsp;</span>{{item.title}}</p>
+            <p class="price">฿{{(i+1)*100}}</p>
+        </div>
+        <p class="toppic">Other Products You Might Like</p>
+        <p class="sub-toppic">Huawei mate 20 เคสกันน้ำ
+            Sony Xperia 5 V
+            resident evil พากย์ไทย
+            Acer โปรเจคเตอร์
+            Initial D rx7 ฟิกเกอร์
+            mi กล้องวงจรปิดภายนอก
+            hyperx cloud alpha
+            ตํานานแห่งอวิ๋นเซียง ตอนที่ 1 พากย์ไทย
+            the walking dead world beyond
+            Xiaomi mi watch fashion silver
+            Cetaphil cleansing bar
+            HP สแกนเนอร์ scanjet enterprise flow 7000 s3 sheet-feed
+            JBL ลําโพงโฮมเธียเตอร์
+            วิตามินซี เกาหลี กล่องเหล็ก
+            samart กล่องทีวีดิจิตอล</p>
+    </div>
+    <hr>
+    <div class="section-2">
+        <div class="section-container">
+            <p class="toppic">CUSTOMER SERVICE</p>
+            <p class="item" *ngFor="let item of customer_service">
+                {{item.title}}
+            </p>
+        </div>
+        <div class="section-container">
+            <p class="toppic">ABOUT SHOPEE</p>
+            <p class="item" *ngFor="let item of about_shopee">
+                {{item.title}}
+            </p>
+        </div>
+        <div class="section-container-img">
+            <p class="toppic">PAYMENT</p>
+            <div class="grid-item">
+                <div class="item-img" *ngFor="let item of payment">
+                    <img [src]="item.img" alt="payment">
+                </div>
+           </div>
+           <p class="toppic">LOGISTICS</p>
+           <div class="grid-item">
+                <div class="item-img" *ngFor="let item of logistics">
+                    <img [src]="item.img" alt="payment">
+                </div>
+            </div>
+        </div>
+        <div class="section-container">
+            <p class="toppic">FOLLOW US</p>
+            <div class="item-follow" *ngFor="let item of follow_us">
+                <img [src]="item.img" alt="follow">
+                <p>{{item.title}}</p>
+            </div>
+        </div>
+        <div class="section-container">
+            <p class="toppic">FOLLOW US</p>
+            <div class="item-follow">
+                <img class="qr" src="assets/footer/qr.png" alt="qr">
+               <div class="app">
+                <img *ngFor="let item of app" [src]="item.img" alt="app">
+               </div>
+            </div>
+        </div>
+    </div>
+</div>
