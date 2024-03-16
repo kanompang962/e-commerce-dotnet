@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {  Router } from '@angular/router';
-import { categorys } from 'src/assets/data/data';
+import { banners, categorys, products } from 'src/assets/data/data';
 
 @Component({
   selector: 'app-home',
@@ -13,31 +13,31 @@ export class HomeComponent implements OnInit{
     private route:Router
   ){}
 
+  banners: any[] = [];
+  products: any[] = [];
   categorys: any[] = [];
   translateX = 0;
 
   ngOnInit(): void {
     this.categorys = categorys;
+    this.products = products;
+    this.banners = banners;
   }
 
-  productToDetail(id:number): void {
-    console.log(id)
-    if (id) {
-      this.route.navigate(['detail']);
+  productToDetail(item:any): void {
+    if (item) {
+      this.route.navigate(['detail', item.id]);
     }
   }
 
-
   scrollLeft() {
-    this.translateX -= 100; // Adjust the scrolling distance as needed
-    console.log("translateX ",this.translateX)
+    this.translateX -= 100;
   }
 
   scrollRight() {
     if (this.translateX != 0) {
       this.translateX += 100;
     }
-    console.log("translateX ",this.translateX)
   }
 
 }

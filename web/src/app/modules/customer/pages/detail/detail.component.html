@@ -1,51 +1,94 @@
 <div class="detail-container">
-    <div class="product-card">
-        <div class="product-img">
-            <img src="https://img.freepik.com/free-photo/regular-plain-white-tshirt-grey-background_125540-2892.jpg?t=st=1710148941~exp=1710152541~hmac=1f6e530501fc2963e21539c9bb1bd8268b1bd7321cee739822bfbb07bd3d43ad&w=2000" alt="">
+    <div class="card-container">
+        <div class="card-product">
+            <div class="product-img">
+                <img [src]="product.thumbnail" alt="">
+                <div class="product-img-list">
+                    <div class="list-container" [style.transform]="'translateX(' + translateX + 'px)'">
+                      <div class="list-item" *ngFor="let img of product.images">
+                        <img [src]="img" alt="images">
+                      </div>
+                    </div>
+                    <button class="scroll-left" (click)="scrollLeft()">
+                      <mat-icon>keyboard_arrow_right</mat-icon>
+                    </button>
+                    <button class="scroll-right" (click)="scrollRight()">
+                      <mat-icon>keyboard_arrow_left</mat-icon>
+                    </button>
+                  </div>
+            </div>
+            <div class="product-detail">
+                <div class="header">
+                    <div class="tag">Preferred</div>
+                    <p class="title">{{product.title}}</p>
+                </div>
+                <div class="flags">
+                    <div class="star">5.0 ⭐️⭐️⭐️⭐️⭐️</div> |
+                    <div class="ratings">{{product.rating}}k Ratting</div> |
+                    <div class="sold">12.2k sold</div>  
+                </div>
+                <div class="price-detail">
+                    <s class="discount">฿139</s>
+                    <p class="price">฿{{product.price}}</p>
+                    <div class="tag">{{product.discountPercentage}}% OFF</div>
+                </div>
+                <div class="shipping-detail">
+                    <div class="shipping">
+                        <p>Shipping</p>
+                        <mat-icon>local_shipping</mat-icon>
+                    </div>
+                    <div class="shipping-title">
+                        <p>Shipping To</p>
+                        <p>Shipping Free</p>
+                    </div>
+                    <div class="shipping-options">
+                        <p>Phra Nakhon, Bangkok</p>
+                        <p>฿27</p>
+                    </div>
+                </div>
+                <div class="quantity-detail">
+                    <p>Quantity</p>
+                    <div class="quantity-input">
+                        <button>-</button>
+                        <input type="number" name="" id="">
+                        <button>+</button>
+                    </div>
+                    <p>{{product.stock}} pieces available</p>
+                </div>
+                <div class="button-detail">
+                    <button class="btn-add" (click)="addToCart(product)">
+                        <mat-icon>add_shopping_cart</mat-icon> Add To Cart
+                    </button>
+                    <button class="btn-buy">Buy Now</button>
+                </div>
+            </div>
         </div>
-        <div class="product-detail">
-            <div class="header">
-                <div class="tag">Preferred</div>
-                <p class="title">TWS Wireless bluetooth</p>
-            </div>
-            <div class="flags">
-                <div class="star">4.6 ⭐️⭐️⭐️⭐️⭐️</div> |
-                <div class="ratings">2.6k Ratting</div> |
-                <div class="sold">12.2k sold</div>  
-            </div>
-            <div class="price-detail">
-                <s class="discount">฿139</s>
-                <p class="price">฿69</p>
-                <div class="tag">99% OFF</div>
-            </div>
-            <div class="shipping-detail">
-                <div class="shipping">
-                    <p>Shipping</p>
-                    <mat-icon>local_shipping</mat-icon>
+
+        <div class="card-description">
+            <div class="specification-section">
+                <div class="header">
+                    Product Specifications
                 </div>
-                <div class="shipping-title">
-                    <p>Shipping To</p>
-                    <p>Shipping Free</p>
-                </div>
-                <div class="shipping-options">
-                    <p>Phra Nakhon, Bangkok</p>
-                    <p>฿27</p>
+                <div class="text-container">
+                    <div class="title">
+                        <p>Category</p>
+                        <p>Brand</p>
+                        <p>Stock</p>
+                        <p>Ships From</p>
+
+                    </div>
+                    <div class="sub-title">
+
+                    </div>
                 </div>
             </div>
-            <div class="quantity-detail">
-                <p>Quantity</p>
-                <div class="quantity-input">
-                    <button>-</button>
-                    <input type="number" name="" id="">
-                    <button>+</button>
+            <div class="description-section">
+                <div class="header">
+                    Product Description
                 </div>
-                <p>1915 pieces available</p>
-            </div>
-            <div class="button-detail">
-                <button class="btn-add">
-                    <mat-icon>add_shopping_cart</mat-icon> Add To Cart
-                </button>
-                <button class="btn-buy">Buy Now</button>
+                <p>{{product.description}} | 
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Beatae ea, error ullam autem recusandae debitis quaerat porro, rem expedita rerum suscipit amet delectus dolor! Quod officiis aliquam aut rem. Facere iure animi incidunt illo sapiente nisi recusandae, enim assumenda. Deserunt in aliquid quas doloremque debitis labore obcaecati placeat neque rerum inventore, libero delectus earum, voluptates sapiente esse. Cupiditate placeat dignissimos doloribus quas quibusdam, eligendi praesentium saepe debitis iste commodi corrupti inventore quasi nisi. Sequi unde, impedit rem alias assumenda quod!
+                </p>
             </div>
         </div>
     </div>

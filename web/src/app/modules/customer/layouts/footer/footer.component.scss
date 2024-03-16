@@ -9,7 +9,7 @@
     .section-1 {
         background: #fff;
         color: $text-gray;
-        padding: 0px 18rem;
+        padding: 10px 18rem 60px 18rem;
 
         .toppic {
             font-size: 14px;
@@ -38,16 +38,12 @@
         }
     }
 
-    hr {
-        margin: 80px 0px;
-    }
-
     .section-2 {
         display: flex;
         justify-content: space-between;
         background: $primary-gray;
         color: $text-gray;
-        padding: 2rem 18rem;
+        padding: 40px 18rem 60px 18rem;
 
         .section-container {
             .toppic {
@@ -126,4 +122,23 @@
 
         }
     }
+
+    .section-3 {
+        display: flex;
+        justify-content: space-between;
+        background: $primary-gray;
+        color: $text-gray;
+        padding: 40px 18rem 40px 18rem;
+
+        p {
+            font-size: 14px;
+        }
+    }
+
+    hr {
+        margin: 0 18rem;
+    //    margin-top: 80px;
+       padding: 0 18rem;
+    }
+
 }

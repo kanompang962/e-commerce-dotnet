@@ -11,6 +11,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { HomeComponent } from './pages/home/home.component';
 import { DetailComponent } from './pages/detail/detail.component';
+import { TruncatePipe } from 'src/app/core/truncate/truncate.pipe';
+import { MatMenuModule } from '@angular/material/menu';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -20,12 +23,15 @@ import { DetailComponent } from './pages/detail/detail.component';
     FooterComponent,
     HomeComponent,
     DetailComponent,
+    TruncatePipe
   ],
   imports: [
     CommonModule,
     CustomerRoutingModule,
     MatIconModule,
-    SharedModule
+    SharedModule,
+    MatMenuModule,
+    MatProgressSpinnerModule
   ]
 })
 export class CustomerModule { }

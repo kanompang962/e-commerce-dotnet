@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Madimi+One&display=swap');
+@import '../../../../../styles.scss';
 
 .navbar {
     background: #232f3e;
@@ -19,17 +20,6 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-
-            // .social-list {
-            //     display: flex;
-            //     justify-content: space-between;
-            //     gap: 16px;
-
-            //     .item-list {
-            //         font-weight: 200;
-            //         opacity: 90%;
-            //     }
-            // }
             
             .nav-list {
                 color: #fff;
@@ -40,7 +30,13 @@
                 .item-list {
                     font-weight: 200;
                     opacity: 90%;
+                    cursor: pointer;
                 }
+
+                .signup, .login {
+                    cursor: pointer;
+                }
+                
             }
         }
 
@@ -98,16 +94,39 @@
             }
 
             .cart {
+                position: relative;
                 width: 100%;
                 height: 100%;
                 display: flex;
                 justify-content: flex-end;
-                margin-right: 10px;
+                margin-right: 20px;
 
-                .mat-icon {
+                .count-cart {
+                    background: #ffffff;
+                    color: $primary;
+                    position: absolute;
+                    font-size: 12px;
+                    font-weight: 600;
+                    border: 1px solid $primary;
+                    border-radius: 20px;
+                    padding: 4px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    top: -12px;
+                    right: -12px;
+                    width: 28px;
+                    height: 20px;
+                }
+
+                .icon-cart {
                     font-size: 30px;
                     width: 30px;
                     height: 30px;
+                    cursor: pointer;
+                }
+                .mat-menu {
+                    background: #000;
                 }
             }
         }

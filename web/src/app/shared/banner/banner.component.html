@@ -1,10 +1,10 @@
 <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <img  src="https://cf.shopee.co.th/file/th-50009109-597ac8bd343707306fced1a1108c2d9d_xxhdpi" class="d-block w-100" alt="...">
+        <img  [src]="banner_start.img" class="d-block w-100" alt="banner">
       </div>
-      <div class="carousel-item">
-        <img src="https://cf.shopee.co.th/file/th-50009109-193499e36175cf59b92a69cf63c856ef_xxhdpi" class="d-block w-100" alt="...">
+      <div class="carousel-item" *ngFor="let item of banners">
+        <img [src]="item.img" class="d-block w-100" alt="banner">
       </div>
     </div>
   </div>
