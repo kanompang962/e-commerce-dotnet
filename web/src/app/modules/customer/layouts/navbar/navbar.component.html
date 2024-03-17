@@ -11,8 +11,8 @@
                 <p class="item-list" *ngFor="let item of navlist">
                     {{item.title}}
                 </p>
-                <p class="signup">Sign Up</p>|
-                <p class="login">Login</p>
+                <p class="signup" (click)="login()">Sign Up</p>|
+                <p class="login" (click)="login()">Login</p>
             </div>
         </div>
         <!-- center -->
@@ -32,10 +32,27 @@
             <!-- cart -->
             <div class="cart">
                 <mat-icon class="icon-cart" [matMenuTriggerFor]="menu">shopping_cart_outlined</mat-icon>
-                <div class="count-cart" *ngIf="my_cart > 0">{{my_cart}}</div>
-                <mat-menu #menu="matMenu" xPosition="before" yPosition="below">
-                  <button mat-menu-item>Item 1</button>
-                  <button mat-menu-item>Item 2</button>
+                <div class="count-cart" *ngIf="my_cart_quantity > 0">{{my_cart_quantity}}</div>
+                <mat-menu  class="menu-container" #menu="matMenu" xPosition="before" yPosition="below" style="background: #77b60a;">
+                    <div class="item-container" style="display: flex; justify-content: center; align-items: center;">
+                        <div class="item-empty" style="padding: 20px 10px;font-size: 14px;" *ngIf="my_cart_quantity < 1">
+                            <img width="100%" height="90px" src="assets/empty.svg" alt="">
+                            <p>No Products Yet</p>
+                        </div>
+                        <div *ngIf="my_cart_quantity > 0" style="padding: 20px 10px;font-size: 14px;">
+                            <div class="item-list" style="display: flex; align-items: center; gap: 10px;margin-bottom: 4px;" *ngFor="let item of my_cart" >
+                                <img width="40px" height="40px" [src]="item.data.thumbnail" alt="">
+                                <p class="title" style="width: 100%;">{{item.data.title | truncate: 16}}</p>
+                                <p style="opacity: 50%;">x{{item.quantity}}</p>
+                                <b class="price">฿{{item.data.price}}</b>
+                            </div>
+                            <div style="display: flex;justify-content: flex-end; padding-top: 20px;">
+                                <button style="padding: 4px 10px; border-radius: 2px; border: none; background: #232f3e; color: #fff;">
+                                    View My Shopping Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </mat-menu>
             </div>
         </div>

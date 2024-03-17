@@ -49,9 +49,9 @@
                 <div class="quantity-detail">
                     <p>Quantity</p>
                     <div class="quantity-input">
-                        <button>-</button>
-                        <input type="number" name="" id="">
-                        <button>+</button>
+                        <button (click)="decrease()">-</button>
+                        <input type="number" name="quantity" id="quantity" [(ngModel)]="quantity">
+                        <button (click)="increase()">+</button>
                     </div>
                     <p>{{product.stock}} pieces available</p>
                 </div>
@@ -93,3 +93,4 @@
         </div>
     </div>
 </div>
+

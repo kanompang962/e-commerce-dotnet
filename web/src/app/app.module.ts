@@ -5,10 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
+import { DialogAlertComponent } from './utility/dialogs/dialog-alert/dialog-alert.component';
+import { DialogConfirmComponent } from './utility/dialogs/dialog-confirm/dialog-confirm.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DialogAlertComponent,
+    DialogConfirmComponent
   ],
   imports: [
     BrowserModule,
@@ -16,7 +20,6 @@ import { SharedModule } from './shared/shared.module';
     BrowserAnimationsModule,
     SharedModule
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -14,6 +14,10 @@ import { DetailComponent } from './pages/detail/detail.component';
 import { TruncatePipe } from 'src/app/core/truncate/truncate.pipe';
 import { MatMenuModule } from '@angular/material/menu';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { FormsModule } from '@angular/forms'; 
+import { DialogService } from 'src/app/services/dialog/dialog.service';
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 @NgModule({
   declarations: [
@@ -31,7 +35,10 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatIconModule,
     SharedModule,
     MatMenuModule,
-    MatProgressSpinnerModule
-  ]
+    MatProgressSpinnerModule,
+    FormsModule,
+    MatDialogModule
+  ],
+  providers: [DialogService],
 })
 export class CustomerModule { }
