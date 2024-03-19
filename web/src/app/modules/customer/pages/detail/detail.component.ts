@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { take } from 'rxjs';
 import { DialogService } from 'src/app/services/dialog/dialog.service';
 import { MyCartService } from 'src/app/services/my-cart/my-cart.service';
@@ -13,9 +13,10 @@ import { products, categorys } from 'src/assets/data/data';
 export class DetailComponent implements OnInit{
 
   constructor(
-    private route: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     private myCartService: MyCartService,
     private dialogService: DialogService,
+    private route: Router,
     ) { }
 
   product:any;
@@ -23,7 +24,7 @@ export class DetailComponent implements OnInit{
   quantity:number = 1;
 
   ngOnInit(): void {
-    this.route.params.subscribe((params: Params) => {
+    this.activatedRoute.params.subscribe((params: Params) => {
       const id = params['id']; 
       this.product = products.find((p)=>p.id == id);
     });
@@ -48,6 +49,10 @@ export class DetailComponent implements OnInit{
     //   const updatedCart = [...currentCart, item];
     //   this.myCartService.setMyCart(updatedCart);
     // });
+  }
+
+  routeToCart():void {
+    this.route.navigate(['cart']);
   }
 
   scrollLeft() {

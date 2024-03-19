@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 
 $primary-red: #ee4d2d;
-$primary-gray: #fbfbfb;
+$primary-gray: #f7f7f7;
 $primary: #232f3e;
 
 $text-gray: #636363;
@@ -27,9 +27,5 @@ $text-gray: #636363;
   .dialog-alert {
     background-color: transparent; /* Set the desired background color */
   }
-  
 
-  .light-backdrop {
-    background-color: transparent; /* Adjust the opacity and color as needed */
-  }
   

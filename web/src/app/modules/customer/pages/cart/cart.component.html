@@ -1,0 +1,75 @@
+<div class="cart-container">
+    <div class="shipping-card">
+        <img src="assets/shipping.png" alt="icon">
+        Select free shipping voucher below to enjoy shipping discount
+    </div>
+    
+    <div class="header-card">
+        <p>Select free shipping voucher below to enjoy shipping discount</p>
+    </div>
+
+    <div class="list-card">
+        <div class="product-container" *ngFor="let item of my_cart; let i = index;">
+            <div class="product-header">
+                <div class="add-on">Add On</div>
+                Add-on Deals
+            </div>
+            <div class="product-item">
+                <mat-checkbox class="check-box" (change)="checkedBox(i)" [checked]="item.checked"></mat-checkbox>
+                <div class="img">
+                    <img [src]="item.data.thumbnail" alt="">
+                </div>
+                <div class="title">{{item.data.title}}</div>
+                <div class="options">options</div>
+                <div class="price"><s>฿499</s>{{item.data.price}}</div>
+                <div class="quantity-conatiner">
+                    <div class="quantity-input">
+                        <button (click)="decrease(i)">-</button>
+                        <input type="number" name="quantity" id="quantity" [(ngModel)]="item.quantity">
+                        <button (click)="increase(i)">+</button>
+                    </div>
+                </div>
+                <div class="total-price">฿{{item.data.price * item.quantity}}</div>
+                <div class="delete">Delete</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-card">
+        <div class="voucher-container">
+            <!-- <div class="section-left"></div> -->
+            <div class="voucher-section">
+                <p class="voucher">Platform Voucher</p>
+                <p class="exclusive">Apply your exclusive vouchers!</p>
+            </div>
+        </div>
+        <div class="coins-container">
+            <div class="coins-section">
+                <div class="item-section">
+                    <p class="coins">Shopee Coins</p>
+                    <p class="selected">No item selected</p>
+                </div>
+                <div class="discount-section">
+                    -฿0
+                </div>
+            </div>
+        </div>
+        <div class="check-out-container">
+            <div class="section-left">
+                <mat-checkbox></mat-checkbox>
+                <p>Select All ({{my_cart_quantity}})</p>
+                <p>Delete</p>
+                <p class="likes">Move to My Likes</p>
+            </div>
+            <div class="section-right">
+                <div class="price-details">
+                    <p class="total">Total ({{my_cart_quantity}} item):</p>
+                    <p class="price">฿{{total_price}}</p>
+                </div>
+                <button>Check Out</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+

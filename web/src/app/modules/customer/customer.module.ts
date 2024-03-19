@@ -17,6 +17,9 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { FormsModule } from '@angular/forms'; 
 import { DialogService } from 'src/app/services/dialog/dialog.service';
 import { MatDialogModule } from '@angular/material/dialog';
+import {MatCardModule} from '@angular/material/card';
+import { CartComponent } from './pages/cart/cart.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 
 @NgModule({
@@ -27,7 +30,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     FooterComponent,
     HomeComponent,
     DetailComponent,
-    TruncatePipe
+    TruncatePipe,
+    CartComponent
   ],
   imports: [
     CommonModule,
@@ -37,7 +41,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatMenuModule,
     MatProgressSpinnerModule,
     FormsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatCardModule,
+    MatCheckboxModule
   ],
   providers: [DialogService],
 })
