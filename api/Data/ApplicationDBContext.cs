@@ -53,8 +53,27 @@ namespace api.Data
 
             // default category
             modelBuilder.Entity<Category>().HasData(
-                new Category { Id = 1, Name = "shirt" },
-                new Category { Id = 2, Name = "trousers" }
+                new Category { Id = 1, Name = "Men Clothes"},
+                new Category { Id = 2, Name = "Men Trousers"},
+                new Category { Id = 3, Name = "Men Shoes"},
+                new Category { Id = 4, Name = "Women Clothes"},
+                new Category { Id = 5, Name = "Women Trousers"},
+                new Category { Id = 6, Name = "Women Shoes"},
+                new Category { Id = 7, Name = "Watches & Glasses"},
+                new Category { Id = 8, Name = "Health & Wellness"},
+                new Category { Id = 9, Name = "Mobile & Gadgets"},
+                new Category { Id = 10, Name = "Computers & Laptops"},
+                new Category { Id = 11, Name = "Home Entertainment"},
+                new Category { Id = 12, Name = "Cameras"},
+                new Category { Id = 13, Name = "Electronics"},
+                new Category { Id = 14, Name = "Home Appliances"},
+                new Category { Id = 15, Name = "Beauty & Personal Care"},
+                new Category { Id = 16, Name = "Sports & Outdoors"},
+                new Category { Id = 17, Name = "Toys & Games"},
+                new Category { Id = 18, Name = "Books & Stationery"},
+                new Category { Id = 19, Name = "Food & Beverage"},
+                new Category { Id = 20, Name = "Pets & Pet Supplies"},
+                new Category { Id = 21, Name = "Fashion Accessories"}
             );
 
             // default role

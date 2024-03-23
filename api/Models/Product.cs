@@ -13,6 +13,10 @@ namespace api.Models
         public string Img { get; set; } = string.Empty;
         [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal discountPercentage { get; set; }
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal rating { get; set; }
         public int Quantity { get; set; }
         public string Description { get; set; } = string.Empty;
         public int CategoryId { get; set; }

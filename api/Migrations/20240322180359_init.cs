@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace api.Migrations
 {
     /// <inheritdoc />
-    public partial class InitTable : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -180,7 +180,8 @@ namespace api.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     TotalAmount = table.Column<int>(type: "int", nullable: false),
-                    TotalPrice = table.Column<int>(type: "int", nullable: false),
+                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Payment = table.Column<bool>(type: "bit", nullable: false),
                     AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
@@ -202,6 +203,8 @@ namespace api.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Img = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    discountPercentage = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    rating = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false)
@@ -217,13 +220,38 @@ namespace api.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "OrderProducts",
+                columns: table => new
+                {
+                    OrderId = table.Column<int>(type: "int", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderProducts", x => new { x.OrderId, x.ProductId });
+                    table.ForeignKey(
+                        name: "FK_OrderProducts_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OrderProducts_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "a0765a42-5966-4a22-8be6-3cabcecde99a", null, "Admin", "ADMIN" },
-                    { "ca149cca-7407-4162-8af0-5c5eb2d1221a", null, "Customer", "CUSTOMER" }
+                    { "5e889a6f-3be0-4a54-9b9c-8bc2c0c12b3c", null, "Admin", "ADMIN" },
+                    { "a33e22a9-31a9-4af8-a04d-e4d55a549eb1", null, "Customer", "CUSTOMER" }
                 });
 
             migrationBuilder.InsertData(
@@ -231,8 +259,27 @@ namespace api.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { 1, "shirt" },
-                    { 2, "trousers" }
+                    { 1, "Men Clothes" },
+                    { 2, "Men Trousers" },
+                    { 3, "Men Shoes" },
+                    { 4, "Women Clothes" },
+                    { 5, "Women Trousers" },
+                    { 6, "Women Shoes" },
+                    { 7, "Watches & Glasses" },
+                    { 8, "Health & Wellness" },
+                    { 9, "Mobile & Gadgets" },
+                    { 10, "Computers & Laptops" },
+                    { 11, "Home Entertainment" },
+                    { 12, "Cameras" },
+                    { 13, "Electronics" },
+                    { 14, "Home Appliances" },
+                    { 15, "Beauty & Personal Care" },
+                    { 16, "Sports & Outdoors" },
+                    { 17, "Toys & Games" },
+                    { 18, "Books & Stationery" },
+                    { 19, "Food & Beverage" },
+                    { 20, "Pets & Pet Supplies" },
+                    { 21, "Fashion Accessories" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -275,6 +322,11 @@ namespace api.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_OrderProducts_ProductId",
+                table: "OrderProducts",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Orders_AppUserId",
                 table: "Orders",
                 column: "AppUserId");
@@ -304,13 +356,16 @@ namespace api.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "OrderProducts");
+
+            migrationBuilder.DropTable(
+                name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
                 name: "Orders");
 
             migrationBuilder.DropTable(
                 name: "Products");
-
-            migrationBuilder.DropTable(
-                name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

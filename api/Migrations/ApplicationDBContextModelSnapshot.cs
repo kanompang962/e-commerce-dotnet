@@ -51,13 +51,13 @@ namespace api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1861b624-9b41-4b9c-9b4f-2abc15740f64",
+                            Id = "5e889a6f-3be0-4a54-9b9c-8bc2c0c12b3c",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "d1e50919-6197-48bf-bb4f-498063965abb",
+                            Id = "a33e22a9-31a9-4af8-a04d-e4d55a549eb1",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         });
@@ -258,12 +258,107 @@ namespace api.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "shirt"
+                            Name = "Men Clothes"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "trousers"
+                            Name = "Men Trousers"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Men Shoes"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Women Clothes"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Women Trousers"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Women Shoes"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Watches & Glasses"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "Health & Wellness"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Name = "Mobile & Gadgets"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Name = "Computers & Laptops"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Name = "Home Entertainment"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Name = "Cameras"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Name = "Electronics"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Name = "Home Appliances"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Name = "Beauty & Personal Care"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Name = "Sports & Outdoors"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Name = "Toys & Games"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            Name = "Books & Stationery"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            Name = "Food & Beverage"
+                        },
+                        new
+                        {
+                            Id = 20,
+                            Name = "Pets & Pet Supplies"
+                        },
+                        new
+                        {
+                            Id = 21,
+                            Name = "Fashion Accessories"
                         });
                 });
 
@@ -343,6 +438,12 @@ namespace api.Migrations
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
+
+                    b.Property<decimal>("discountPercentage")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("rating")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 

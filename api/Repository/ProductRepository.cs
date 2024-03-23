@@ -42,7 +42,7 @@ namespace api.Repository
 
         public async Task<List<Product>> GetAllAsync()
         {
-            var products = await _context.Products.Include(c => c.Category).ToListAsync();
+            var products = await _context.Products.Include(c => c.Category).OrderByDescending(p => p.Id).ToListAsync();
             return products;
         }
 
@@ -54,6 +54,11 @@ namespace api.Repository
                 return null;
 
             return product;
+        }
+
+        public async Task<bool> ProductExists(int id)
+        {
+            return await _context.Products.AnyAsync(p => p.Id == id);
         }
 
         public async Task<Product?> UpdateAsync(int id, ProductDtoUpdateFormData productDto)

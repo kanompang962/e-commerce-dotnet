@@ -12,6 +12,8 @@ namespace api.Dtos
         public string Name { get; set; } = string.Empty;
         public string Img { get; set; } = string.Empty;
         public decimal Price { get; set; }
+        public decimal discountPercentage { get; set; }
+        public decimal rating { get; set; }
         public int Quantity { get; set; }
         public string Description { get; set; } = string.Empty;
         public int CategoryId { get; set; }

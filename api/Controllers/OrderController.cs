@@ -74,19 +74,26 @@ namespace api.Controllers
         {
             // check user
             var username = User.GetUsername();
+            if(username == null)
+                return BadRequest("account does not exists");
+
             var appUser = await _userManager.FindByNameAsync(username);
+            if(appUser == null)
+                return BadRequest("account does not exists");
+
             var orderProduct = orderDto.OrderProducts;
             var total_amount = 0;
             decimal total_price = 0;
 
-            if(appUser == null)
-                return BadRequest("account does not exists");
-            
             // calculator total, price
             if (orderProduct?.Length > 0 || orderProduct != null)
             {
                 foreach (var item in orderProduct)
                 {
+                    var checkProductId = await _productRepo.ProductExists(item.ProductId);
+                    if (!checkProductId)
+                        return BadRequest("product does not exists");
+
                     var product = await _productRepo.GetByIdAsync(item.ProductId);
                     total_amount += item.Quantity;
                     total_price += item.Quantity * product!.Price;

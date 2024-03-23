@@ -12,8 +12,8 @@ using api.Data;
 namespace api.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20240309172826_AddColumnPayment")]
-    partial class AddColumnPayment
+    [Migration("20240322180359_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,13 +54,13 @@ namespace api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "098ed41f-d3a7-4a0f-8f79-2cd1084f52e0",
+                            Id = "5e889a6f-3be0-4a54-9b9c-8bc2c0c12b3c",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "f0bee065-c933-4de2-9666-077b3df4c9f2",
+                            Id = "a33e22a9-31a9-4af8-a04d-e4d55a549eb1",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         });
@@ -261,12 +261,107 @@ namespace api.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "shirt"
+                            Name = "Men Clothes"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "trousers"
+                            Name = "Men Trousers"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Men Shoes"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Women Clothes"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Women Trousers"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Women Shoes"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Watches & Glasses"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "Health & Wellness"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Name = "Mobile & Gadgets"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Name = "Computers & Laptops"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Name = "Home Entertainment"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Name = "Cameras"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Name = "Electronics"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Name = "Home Appliances"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Name = "Beauty & Personal Care"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Name = "Sports & Outdoors"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Name = "Toys & Games"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            Name = "Books & Stationery"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            Name = "Food & Beverage"
+                        },
+                        new
+                        {
+                            Id = 20,
+                            Name = "Pets & Pet Supplies"
+                        },
+                        new
+                        {
+                            Id = 21,
+                            Name = "Fashion Accessories"
                         });
                 });
 
@@ -290,14 +385,32 @@ namespace api.Migrations
                     b.Property<int>("TotalAmount")
                         .HasColumnType("int");
 
-                    b.Property<int>("TotalPrice")
-                        .HasColumnType("int");
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AppUserId");
 
                     b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("api.Models.OrderProduct", b =>
+                {
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("OrderId", "ProductId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("OrderProducts");
                 });
 
             modelBuilder.Entity("api.Models.Product", b =>
@@ -328,6 +441,12 @@ namespace api.Migrations
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
+
+                    b.Property<decimal>("discountPercentage")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("rating")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -396,6 +515,25 @@ namespace api.Migrations
                     b.Navigation("AppUser");
                 });
 
+            modelBuilder.Entity("api.Models.OrderProduct", b =>
+                {
+                    b.HasOne("api.Models.Order", "Order")
+                        .WithMany("OrderProducts")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("api.Models.Product", "Product")
+                        .WithMany("OrderProducts")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("api.Models.Product", b =>
                 {
                     b.HasOne("api.Models.Category", "Category")
@@ -415,6 +553,16 @@ namespace api.Migrations
             modelBuilder.Entity("api.Models.Category", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("api.Models.Order", b =>
+                {
+                    b.Navigation("OrderProducts");
+                });
+
+            modelBuilder.Entity("api.Models.Product", b =>
+                {
+                    b.Navigation("OrderProducts");
                 });
 #pragma warning restore 612, 618
         }
