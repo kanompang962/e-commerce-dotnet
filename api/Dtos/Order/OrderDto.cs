@@ -15,6 +15,8 @@ namespace api.Dtos.Order
         public int TotalAmount { get; set; }
         public decimal TotalPrice { get; set; }
         public bool Payment { get; set; }
+        public int StatusId { get; set; }
+        public OrderStatusDto? Status { get; set; }
         public string? AppUserId { get; set; }
         public AppUserDto? AppUser { get; set; }
         public List<OrderProductDto>? OrderProducts { get; set; }

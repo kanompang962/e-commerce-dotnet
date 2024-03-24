@@ -18,12 +18,14 @@ namespace api.Controllers
     {
         private readonly IOrderRepository _orderRepo;
         private readonly IProductRepository _productRepo;
+        private readonly IOrderStatusRepository _orderStatusRepo;
         private readonly IOrderProductRepository _orderProductRepo;
         private readonly UserManager<AppUser> _userManager;
         public OrderController(
             IOrderRepository orderRepo, 
             IOrderProductRepository orderProductRepo, 
             IProductRepository productRepo,
+            IOrderStatusRepository orderStatusRepo,
             UserManager<AppUser> userManager
         )
         {
@@ -31,6 +33,7 @@ namespace api.Controllers
             _productRepo = productRepo;
             _userManager = userManager;
             _orderProductRepo = orderProductRepo;
+            _orderStatusRepo = orderStatusRepo;
         }
 
         [HttpGet]
@@ -81,6 +84,11 @@ namespace api.Controllers
             if(appUser == null)
                 return BadRequest("account does not exists");
 
+            // check order status
+            var orderStatus = await _orderStatusRepo.OrderStatusExists(orderDto.StatusId);
+            if(!orderStatus)
+                return BadRequest("order status does not exits");
+
             var orderProduct = orderDto.OrderProducts;
             var total_amount = 0;
             decimal total_price = 0;
@@ -126,6 +134,31 @@ namespace api.Controllers
                 new {id = result.Id},
                 result.ToOrderDto()
             );
+        }
+        
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> Update([FromBody] OrderDtoUpdate orderDto, int id)
+        {
+            // update order product
+            var orderProduct = orderDto.OrderProducts;
+            foreach (var item in orderProduct!)
+            {
+                var orderProductResult = await _orderProductRepo.UpdateAsync(
+                    id,
+                    item.ProductId,
+                    item.Quantity
+                );
+
+                if(orderProductResult == null)
+                    return NotFound("order product does not exists");
+            }
+
+            // update order
+            var order = await _orderRepo.UpdateAsync(orderDto, id);
+            if(order == null)
+                return NotFound("order does not exists");
+
+            return Ok(order.ToOrderDto());
         }
     }
 }

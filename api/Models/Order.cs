@@ -14,6 +14,8 @@ namespace api.Models
         [Column(TypeName = "decimal(18,2)")]
         public decimal TotalPrice { get; set; }
         public bool Payment { get; set; }
+        public int StatusId { get; set; }
+        public OrderStatus? Status { get; set; }
         public string? AppUserId { get; set; }
         public AppUser? AppUser { get; set; }
         public List<OrderProduct> OrderProducts { get; set; } = new List<OrderProduct>();

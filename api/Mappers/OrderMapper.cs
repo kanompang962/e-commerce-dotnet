@@ -18,6 +18,8 @@ namespace api.Mappers
                 TotalAmount = orderModel.TotalAmount,
                 TotalPrice = orderModel.TotalPrice,
                 Payment = orderModel.Payment,
+                StatusId = orderModel.StatusId,
+                Status = orderModel.Status?.ToOrderStatusDto(),
                 AppUserId = orderModel.AppUserId,
                 AppUser = orderModel.AppUser?.ToAppUserDto(),
                 OrderProducts = orderModel.OrderProducts.Select(or => or.ToOrderProductDto()).ToList()
@@ -28,9 +30,10 @@ namespace api.Mappers
         {
             return new Order
             {
+                Payment = productDto.Payment,
+                StatusId = productDto.StatusId,
                 TotalAmount = total_amount,
                 TotalPrice = total_price,
-                Payment = productDto.Payment,
                 AppUserId = appUserId,
             };
         }

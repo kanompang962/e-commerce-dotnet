@@ -21,6 +21,7 @@ namespace api.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderProduct> OrderProducts { get; set; }
+        public DbSet<OrderStatus> OrderStatuses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -31,6 +32,12 @@ namespace api.Data
                 .HasOne(p => p.Category)
                 .WithMany(c => c.Products)
                 .HasForeignKey(p => p.CategoryId);
+
+            // one to one (status, order)
+            modelBuilder.Entity<Order>()
+                .HasOne(o => o.Status)
+                .WithMany(s => s.Orders)
+                .HasForeignKey(p => p.StatusId);
             
             // one to many (user, order)
             modelBuilder.Entity<AppUser>()
@@ -50,6 +57,13 @@ namespace api.Data
                 .HasOne(u => u.Product)
                 .WithMany(u => u.OrderProducts)
                 .HasForeignKey(p => p.ProductId);
+
+            // default category
+            modelBuilder.Entity<OrderStatus>().HasData(
+                new OrderStatus { Id = 1, Name = "Payment"},
+                new OrderStatus { Id = 2, Name = "Waiting for payment"},
+                new OrderStatus { Id = 3, Name = "Cart"}
+            );
 
             // default category
             modelBuilder.Entity<Category>().HasData(
