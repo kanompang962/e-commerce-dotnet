@@ -30,6 +30,13 @@ namespace api.Controllers
             return Ok(orderProducts); 
         }
 
+        // [HttpPost]
+        // public async Task<IActionResult> Create()
+        // {
+        //     var orderProducts = await _orderProductRepo.GetAllAsync();
+        //     return Ok(orderProducts); 
+        // }
+
         [HttpDelete("{orderId:int}")]
         public async Task<IActionResult> Delete([FromBody] OrderProductDtoRequest orderProduct, [FromRoute] int orderId)
         {
@@ -42,20 +49,20 @@ namespace api.Controllers
             var order = await _orderRepo.GetByIdAsync(orderId);
             if(orderProducts == null)
                 return NotFound("order does not exists");
-                
+
             var orderProductDtos = order?.OrderProducts
             .Select(op => new OrderProductDtoUpdate
             {
                 ProductId = op.ProductId,
                 Quantity = op.Quantity
             })
-            .ToArray(); // Convert the IEnumerable<OrderProductDtoUpdate> to an array
+            .ToArray();
 
             var existingOrder = new OrderDtoUpdate
             {
                 Payment = order!.Payment,
                 StatusId = order.StatusId,
-                OrderProducts = orderProductDtos // Assign the mapped array to OrderProducts property
+                OrderProducts = orderProductDtos
             };
             var result_order = await _orderRepo.UpdateAsync(existingOrder, orderId);
 

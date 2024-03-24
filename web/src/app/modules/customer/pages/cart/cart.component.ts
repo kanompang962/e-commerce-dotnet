@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Cart } from 'src/app/models/cart.model';
 import { MyCartService } from 'src/app/services/my-cart/my-cart.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-cart',
@@ -11,8 +13,9 @@ export class CartComponent implements OnInit{
   constructor(
     private myCartService: MyCartService,
   ){}
-
-  my_cart: any[] = [];
+  
+  apiUrl = environment.apiUrl
+  my_cart: Cart[] = [];
   my_cart_quantity: number = 0;
   total_price: number = 0;
 

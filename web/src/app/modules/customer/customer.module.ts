@@ -20,6 +20,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import {MatCardModule} from '@angular/material/card';
 import { CartComponent } from './pages/cart/cart.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     FormsModule,
     MatDialogModule,
     MatCardModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    HttpClientModule
   ],
   providers: [DialogService],
 })

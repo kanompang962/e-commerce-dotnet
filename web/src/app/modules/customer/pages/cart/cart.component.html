@@ -17,9 +17,9 @@
             <div class="product-item">
                 <mat-checkbox class="check-box" (change)="checkedBox(i)" [checked]="item.checked"></mat-checkbox>
                 <div class="img">
-                    <img [src]="item.data.thumbnail" alt="">
+                    <img [src]="apiUrl +'/'+ item.data.img" alt="">
                 </div>
-                <div class="title">{{item.data.title}}</div>
+                <div class="title">{{item.data.name}}</div>
                 <div class="options">options</div>
                 <div class="price"><s>฿499</s>{{item.data.price}}</div>
                 <div class="quantity-conatiner">

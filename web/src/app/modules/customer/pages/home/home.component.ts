@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {  Router } from '@angular/router';
-import { banners, categorys, products } from 'src/assets/data/data';
+import { Product } from 'src/app/models/product.model';
+import { ProductService } from 'src/app/services/product/product.service';
+import { banners, categorys } from 'src/assets/data/data';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -10,18 +13,27 @@ import { banners, categorys, products } from 'src/assets/data/data';
 export class HomeComponent implements OnInit{
   
   constructor(
-    private route:Router
+    private route:Router,
+    private productService:ProductService,
   ){}
 
+  apiUrl = environment.apiUrl
   banners: any[] = [];
-  products: any[] = [];
+  products: Product[] = [];
   categorys: any[] = [];
   translateX = 0;
 
   ngOnInit(): void {
+    this.fetchProducts();
     this.categorys = categorys;
-    this.products = products;
+    // this.products = products;
     this.banners = banners;
+  }
+
+  fetchProducts():void {
+    this.productService.getProductAll().subscribe((res)=>{
+      this.products = res;
+    })
   }
 
   productToDetail(item:any): void {

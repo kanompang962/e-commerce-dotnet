@@ -2,8 +2,8 @@
     <div class="card-container">
         <div class="card-product">
             <div class="product-img">
-                <img [src]="product.thumbnail" alt="">
-                <div class="product-img-list">
+                <img [src]="apiUrl +'/'+ product?.img" alt="">
+                <!-- <div class="product-img-list">
                     <div class="list-container" [style.transform]="'translateX(' + translateX + 'px)'">
                       <div class="list-item" *ngFor="let img of product.images">
                         <img [src]="img" alt="images">
@@ -15,22 +15,22 @@
                     <button class="scroll-right" (click)="scrollRight()">
                       <mat-icon>keyboard_arrow_left</mat-icon>
                     </button>
-                  </div>
+                  </div> -->
             </div>
             <div class="product-detail">
                 <div class="header">
                     <div class="tag">Preferred</div>
-                    <p class="title">{{product.title}}</p>
+                    <p class="title">{{product?.name}}</p>
                 </div>
                 <div class="flags">
                     <div class="star">5.0 ⭐️⭐️⭐️⭐️⭐️</div> |
-                    <div class="ratings">{{product.rating}}k Ratting</div> |
+                    <div class="ratings">{{product?.rating}}k Ratting</div> |
                     <div class="sold">12.2k sold</div>  
                 </div>
                 <div class="price-detail">
                     <s class="discount">฿139</s>
-                    <p class="price">฿{{product.price}}</p>
-                    <div class="tag">{{product.discountPercentage}}% OFF</div>
+                    <p class="price">฿{{product?.price}}</p>
+                    <div class="tag">{{product?.discountPercentage}}% OFF</div>
                 </div>
                 <div class="shipping-detail">
                     <div class="shipping">
@@ -53,7 +53,7 @@
                         <input type="number" name="quantity" id="quantity" [(ngModel)]="quantity">
                         <button (click)="increase()">+</button>
                     </div>
-                    <p>{{product.stock}} pieces available</p>
+                    <p>{{product?.quantity}} pieces available</p>
                 </div>
                 <div class="button-detail">
                     <button class="btn-add" (click)="addToCart(product)">
@@ -86,7 +86,7 @@
                 <div class="header">
                     Product Description
                 </div>
-                <p>{{product.description}} | 
+                <p>{{product?.description}} | 
                     Lorem ipsum dolor sit, amet consectetur adipisicing elit. Beatae ea, error ullam autem recusandae debitis quaerat porro, rem expedita rerum suscipit amet delectus dolor! Quod officiis aliquam aut rem. Facere iure animi incidunt illo sapiente nisi recusandae, enim assumenda. Deserunt in aliquid quas doloremque debitis labore obcaecati placeat neque rerum inventore, libero delectus earum, voluptates sapiente esse. Cupiditate placeat dignissimos doloribus quas quibusdam, eligendi praesentium saepe debitis iste commodi corrupti inventore quasi nisi. Sequi unde, impedit rem alias assumenda quod!
                 </p>
             </div>

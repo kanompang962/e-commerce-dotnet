@@ -7,6 +7,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
 import { DialogAlertComponent } from './utility/dialogs/dialog-alert/dialog-alert.component';
 import { DialogConfirmComponent } from './utility/dialogs/dialog-confirm/dialog-confirm.component';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HttpClientInterceptor } from './core/interceptor/http-client.intercepter';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,11 @@ import { DialogConfirmComponent } from './utility/dialogs/dialog-confirm/dialog-
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    SharedModule
+    SharedModule,
+    HttpClientModule
+  ],
+  providers : [
+    { provide: HTTP_INTERCEPTORS, useClass: HttpClientInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })

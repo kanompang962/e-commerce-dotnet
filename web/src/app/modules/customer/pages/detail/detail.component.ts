@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { take } from 'rxjs';
+import { Product } from 'src/app/models/product.model';
 import { DialogService } from 'src/app/services/dialog/dialog.service';
 import { MyCartService } from 'src/app/services/my-cart/my-cart.service';
-import { products, categorys } from 'src/assets/data/data';
+import { ProductService } from 'src/app/services/product/product.service';
+import { categorys } from 'src/assets/data/data';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-detail',
@@ -16,18 +19,28 @@ export class DetailComponent implements OnInit{
     private activatedRoute: ActivatedRoute,
     private myCartService: MyCartService,
     private dialogService: DialogService,
+    private productService: ProductService,
     private route: Router,
     ) { }
 
-  product:any;
+  // product:any;
+  apiUrl = environment.apiUrl
+  product?:Product;
   translateX = 0;
   quantity:number = 1;
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params: Params) => {
       const id = params['id']; 
-      this.product = products.find((p)=>p.id == id);
+      this.fetchProduct(id);
+      // this.product = products.find((p)=>p.id == id);
     });
+  }
+
+  fetchProduct(id:number):void {
+    this.productService.getProductById(id).subscribe((res)=>{
+      this.product = res;
+    })
   }
 
   decrease():void {

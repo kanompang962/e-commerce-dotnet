@@ -18,16 +18,16 @@
     <!-- list -->
     <div class="list">
         <div class="list-item" (click)="productToDetail(item)" *ngFor="let item of products">
-            <img [src]="item.thumbnail" alt="product">
+            <img [src]="apiUrl +'/'+ item.img" alt="product">
             <div class="tag">-{{item.discountPercentage}}%</div>
             <div class="detail">
                <div>
-                  <p class="name">{{item.title | truncate: 32}}</p>
+                  <p class="name">{{item.name | truncate: 32}}</p>
                   <div class="promotion">New Promotion 80% OFF</div>
                </div>
                 <div class="footer">
                     <p class="price">฿{{item.price}}</p>
-                    <p class="sold">{{item.stock}}k sold</p>
+                    <p class="sold">{{item.quantity}}k sold</p>
                  </div>
             </div>
         </div>
