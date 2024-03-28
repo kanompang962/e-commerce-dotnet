@@ -33,6 +33,7 @@ namespace api.Repository
         public async Task<List<Order>> GetAllAsync()
         {
             return await _context.Orders
+                        .OrderByDescending(o => o.Id)
                         .Include(op => op.OrderProducts) // เพิ่มบรรทัดนี้เพื่อดึงข้อมูลจาก OrderProduct
                         .ThenInclude(op => op.Product) // เพิ่มบรรทัดนี้เพื่อดึงข้อมูลจาก Product
                         .ThenInclude(c => c!.Category) // เพิ่มบรรทัดนี้เพื่อดึงข้อมูลจาก Category
@@ -69,6 +70,7 @@ namespace api.Repository
 
             return order;
         }
+        
         public async Task<Order?> UpdateAsync(OrderDtoUpdate orderDto, int id)
         {
             var existingOrder = await _context.Orders.FirstOrDefaultAsync(o => o.Id == id);

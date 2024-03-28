@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Params, Router } from '@angular/router';
 import { take } from 'rxjs';
 import { Product } from 'src/app/models/product.model';
 import { DialogService } from 'src/app/services/dialog/dialog.service';
@@ -64,8 +64,11 @@ export class DetailComponent implements OnInit{
     // });
   }
 
-  routeToCart():void {
-    this.route.navigate(['cart']);
+  buyNow(id:number):void {
+    const params: NavigationExtras = {
+      queryParams: { data: id,}
+    }
+    this.route.navigate(['cart'],params);
   }
 
   scrollLeft() {

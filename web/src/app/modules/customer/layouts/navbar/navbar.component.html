@@ -11,8 +11,15 @@
                 <p class="item-list" *ngFor="let item of navlist">
                     {{item.title}}
                 </p>
-                <p class="signup" (click)="login()">Sign Up</p>|
-                <p class="login" (click)="login()">Login</p>
+                <p *ngIf="user?.username" [matMenuTriggerFor]="menuAccount">{{user?.username}}</p>
+                <mat-menu #menuAccount="matMenu">
+                    <button mat-menu-item>My Account</button>
+                    <button mat-menu-item (click)="logout()">Log Out</button>
+                </mat-menu>
+                <div class="auth-list" *ngIf="!user?.username">
+                    <p class="signup" (click)="login()">Sign Up</p>|
+                    <p class="login" (click)="login()">Login</p>
+                </div>
             </div>
         </div>
         <!-- center -->
@@ -47,7 +54,8 @@
                                 <b class="price">฿{{item.data.price}}</b>
                             </div>
                             <div style="display: flex;justify-content: flex-end; padding-top: 20px;">
-                                <button style="padding: 4px 10px; border-radius: 2px; border: none; background: #232f3e; color: #fff;">
+                                <button (click)="viewMyShoppingCart()"
+                                style="padding: 4px 10px; border-radius: 2px; border: none; background: #232f3e; color: #fff;">
                                     View My Shopping Cart
                                 </button>
                             </div>

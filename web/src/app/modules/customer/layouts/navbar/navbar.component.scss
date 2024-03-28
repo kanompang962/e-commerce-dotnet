@@ -33,10 +33,15 @@
                     cursor: pointer;
                 }
 
-                .signup, .login {
-                    cursor: pointer;
+                .auth-list {
+                    display: flex;
+                    gap: 10px;
+
+                    .signup, .login {
+                        cursor: pointer;
+                    }
+                    
                 }
-                
             }
         }
 
@@ -129,6 +134,15 @@
 
 
             }
+        }
+    }
+}
+
+
+@media screen and (min-width: 767px) and (max-width: 1400px) {
+    .navbar {
+        .nav-container {
+            padding: 0px 4rem;
         }
     }
 }

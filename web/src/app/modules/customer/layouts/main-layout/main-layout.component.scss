@@ -8,3 +8,13 @@
         padding-bottom: 100px;
     }
 }
+
+@media screen and (min-width: 767px) and (max-width: 1400px) {
+    .main-layout {
+        .body {
+            padding: 0 4rem;
+            padding-top: 20px;
+            padding-bottom: 100px;
+        }
+    }
+}
