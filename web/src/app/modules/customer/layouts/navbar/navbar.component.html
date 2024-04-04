@@ -39,14 +39,14 @@
             <!-- cart -->
             <div class="cart">
                 <mat-icon class="icon-cart" [matMenuTriggerFor]="menu">shopping_cart_outlined</mat-icon>
-                <div class="count-cart" *ngIf="my_cart_quantity > 0">{{my_cart_quantity}}</div>
+                <div class="count-cart" *ngIf="my_cart.length > 0">{{my_cart.length}}</div>
                 <mat-menu  class="menu-container" #menu="matMenu" xPosition="before" yPosition="below" style="background: #77b60a;">
                     <div class="item-container" style="display: flex; justify-content: center; align-items: center;">
-                        <div class="item-empty" style="padding: 20px 10px;font-size: 14px;" *ngIf="my_cart_quantity < 1">
+                        <div class="item-empty" style="padding: 20px 10px;font-size: 14px;" *ngIf="my_cart.length == 0">
                             <img width="100%" height="90px" src="assets/empty.svg" alt="">
                             <p>No Products Yet</p>
                         </div>
-                        <div *ngIf="my_cart_quantity > 0" style="padding: 20px 10px;font-size: 14px;">
+                        <div *ngIf="my_cart.length > 0" style="padding: 20px 10px;font-size: 14px;">
                             <div class="item-list" style="display: flex; align-items: center; gap: 10px;margin-bottom: 4px;" *ngFor="let item of my_cart" >
                                 <img width="40px" height="40px" [src]="apiUrl +'/'+ item.data.img" alt="">
                                 <p class="title" style="width: 100%;">{{item.data.name | truncate: 16}}</p>

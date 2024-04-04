@@ -66,6 +66,7 @@ namespace api.Repository
                 .ThenInclude(op => op.Product) // เพิ่มบรรทัดนี้เพื่อดึงข้อมูลจาก Product
                 .ThenInclude(c => c!.Category) // เพิ่มบรรทัดนี้เพื่อดึงข้อมูลจาก Category
                 .Include(a => a.AppUser)
+                .Include(s => s.Status) // เพิ่มบรรทัดนี้เพื่อดึงข้อมูลจาก OrderPStatus
                 .Where(o => o.AppUserId == appUser.Id).ToListAsync();
 
             return order;

@@ -6,6 +6,7 @@ import { Cart } from 'src/app/models/cart.model';
 import { environment } from 'src/environments/environment';
 import { User } from 'src/app/models/user.model';
 import { getSession, removeSession } from 'src/app/core/session/sessionService';
+import { OrderService } from 'src/app/services/order/order.service';
 
 @Component({
   selector: 'app-navbar',
@@ -16,6 +17,7 @@ export class NavbarComponent implements OnInit{
 
   constructor(
     private myCartService: MyCartService,
+    private orderService: OrderService,
     private route: Router,
   ){}
   
@@ -57,11 +59,26 @@ export class NavbarComponent implements OnInit{
   }
 
   getMyCart():void {
-    this.myCartService.currentCart$.subscribe((state)=>{
-      this.my_cart = state;
-      this.my_cart_quantity = state.length;
+    this.orderService.getCart().forEach((res)=>{
+      if (res) {
+        res.orderProducts.forEach((item)=>{
+          this.my_cart.push({
+            data: item.products,
+            quantity: item.quantity,
+            checked: false
+          })
+        })
+        console.log(this.my_cart)
+      }
     })
   }
+
+  // getMyCart():void {
+  //   this.myCartService.currentCart$.subscribe((state)=>{
+  //     this.my_cart = state;
+  //     this.my_cart_quantity = state.length;
+  //   })
+  // }
 
   viewMyShoppingCart():void {
     this.route.navigate(['cart']);
