@@ -72,6 +72,24 @@ namespace api.Controllers
             return Ok(order.Select(o => o.ToOrderDto()));
         }
         
+        [HttpGet]
+        [Route("cart")]
+        public async Task<IActionResult> GetCart()
+        {
+            // check user
+            var username = User.GetUsername();
+            var appUser = await _userManager.FindByNameAsync(username);
+
+            if(appUser == null)
+                return BadRequest("token does not exists");
+
+            var order = await _orderRepo.GetCartAsync(appUser);
+            if(order == null)
+                return NotFound("order does not exists");
+            
+            return Ok(order.ToOrderDto());
+        }
+        
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] OrderDtoRequest orderDto)
         {

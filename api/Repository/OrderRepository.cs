@@ -70,7 +70,20 @@ namespace api.Repository
 
             return order;
         }
-        
+
+        public async Task<Order?> GetCartAsync(AppUser appUser)
+        {
+            var order = await _context.Orders
+                .Include(op => op.OrderProducts) // เพิ่มบรรทัดนี้เพื่อดึงข้อมูลจาก OrderProduct
+                .ThenInclude(op => op.Product) // เพิ่มบรรทัดนี้เพื่อดึงข้อมูลจาก Product
+                .ThenInclude(c => c!.Category) // เพิ่มบรรทัดนี้เพื่อดึงข้อมูลจาก Category
+                .Include(a => a.AppUser)
+                .Where(o => o.AppUserId == appUser.Id)
+                .FirstOrDefaultAsync(o => o.StatusId == 3);
+
+            return order;
+        }
+
         public async Task<Order?> UpdateAsync(OrderDtoUpdate orderDto, int id)
         {
             var existingOrder = await _context.Orders.FirstOrDefaultAsync(o => o.Id == id);
