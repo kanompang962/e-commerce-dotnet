@@ -13,7 +13,7 @@
                 </p>
                 <p *ngIf="user?.username" [matMenuTriggerFor]="menuAccount">{{user?.username}}</p>
                 <mat-menu #menuAccount="matMenu">
-                    <button mat-menu-item>My Account</button>
+                    <button mat-menu-item (click)="account()">My Account</button>
                     <button mat-menu-item (click)="logout()">Log Out</button>
                 </mat-menu>
                 <div class="auth-list" *ngIf="!user?.username">

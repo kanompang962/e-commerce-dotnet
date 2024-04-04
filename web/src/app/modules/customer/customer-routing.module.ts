@@ -5,13 +5,15 @@ import { MainLayoutComponent } from './layouts/main-layout/main-layout.component
 import { HomeComponent } from './pages/home/home.component';
 import { DetailComponent } from './pages/detail/detail.component';
 import { CartComponent } from './pages/cart/cart.component';
+import { AccountComponent } from './pages/account/account.component';
 
 const routes: Routes = [
   { path: '', component: MainLayoutComponent, 
     children: [
       { path: '', component: HomeComponent },
       { path: 'detail/:id', component: DetailComponent },
-      { path: 'cart', component: CartComponent }
+      { path: 'cart', component: CartComponent },
+      { path: 'account', component: AccountComponent },
     ] 
   }];
 

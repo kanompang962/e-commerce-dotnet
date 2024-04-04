@@ -13,4 +13,8 @@ export class OrderService {
   createOrder(payload:Order): Observable<Order> {
     return this.http.post<Order>(`/api/order`,payload);
   }
+
+  getOrderByUser(): Observable<Order[]> {
+    return this.http.get<Order[]>(`/api/order`);
+  }
 }

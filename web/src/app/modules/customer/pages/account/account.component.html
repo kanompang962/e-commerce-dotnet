@@ -1,0 +1,64 @@
+<div class="account-card">
+    <div class="purchase-list">
+        <div class="purchase-container" *ngFor="let item of order; let i = index;">
+            <div class="product-header">
+                <div class="add-on">{{item.status.name}}</div>
+                Add-on Deals
+            </div>
+            <div class="product-item" *ngFor="let orderItem of item.orderProducts;">
+                <mat-checkbox class="check-box" disabled="true" checked="true"></mat-checkbox>
+                <div class="img">
+                    <img [src]="apiUrl +'/'+ orderItem.products.img" alt="">
+                </div>
+                <div class="title">{{orderItem.products.name}}</div>
+                <div class="options">options</div>
+                <div class="price">{{orderItem.products.price}}</div>
+                <div class="quantity-conatiner">
+                    <div class="quantity-input">
+                        <button>-</button>
+                        <input disabled type="number" name="quantity" id="quantity" value="{{orderItem.quantity}}">
+                        <button>+</button>
+                    </div>
+                </div>
+                <div class="total-price">฿{{orderItem.quantity*orderItem.products.price}}</div>
+                <div class="delete">Delete</div>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="product-footer">
+                <div class="voucher-container">
+                    <!-- <div class="section-left"></div> -->
+                    <div class="voucher-section">
+                        <p class="voucher">Platform Voucher</p>
+                        <p class="exclusive">Apply your exclusive vouchers!</p>
+                    </div>
+                </div>
+                <div class="coins-container">
+                    <div class="coins-section">
+                        <div class="item-section">
+                            <p class="coins">Shopee Coins</p>
+                            <p class="selected">No item selected</p>
+                        </div>
+                        <div class="discount-section">
+                            -฿0
+                        </div>
+                    </div>
+                </div>
+                <div class="check-out-container">
+                    <div class="section-left">
+                        <img src="assets/shipping.png" alt="">
+                        <p>Parcel delivered successfully</p>
+                        <!-- <p>Delete</p>
+                        <p class="likes">Move to My Likes</p> -->
+                    </div>
+                    <div class="section-right">
+                        <div class="price-details">
+                            <p class="total">Total ({{item.orderProducts.length}} item):</p>
+                            <p class="price">฿{{item.totalPrice}}</p>
+                        </div>
+                        <button >Buy again</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

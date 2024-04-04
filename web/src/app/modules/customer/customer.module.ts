@@ -21,6 +21,8 @@ import {MatCardModule} from '@angular/material/card';
 import { CartComponent } from './pages/cart/cart.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { HttpClientModule } from '@angular/common/http';
+import { AccountComponent } from './pages/account/account.component';
+import {MatDividerModule} from '@angular/material/divider';
 
 
 @NgModule({
@@ -32,7 +34,8 @@ import { HttpClientModule } from '@angular/common/http';
     HomeComponent,
     DetailComponent,
     TruncatePipe,
-    CartComponent
+    CartComponent,
+    AccountComponent
   ],
   imports: [
     CommonModule,
@@ -45,7 +48,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatDialogModule,
     MatCardModule,
     MatCheckboxModule,
-    HttpClientModule
+    HttpClientModule,
+    MatDividerModule
   ],
   providers: [DialogService],
 })

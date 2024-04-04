@@ -45,6 +45,10 @@ export class NavbarComponent implements OnInit{
     }
   }
 
+  account():void {
+    this.route.navigate(['account']);
+  }
+
   getUser():void {
     this.user = getSession('user');
     // if (!this.user) {
